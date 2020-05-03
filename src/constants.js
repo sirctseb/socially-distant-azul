@@ -7,3 +7,4 @@ export const BLUE = 'blue';
 export const colors = [BLACK, RED, YELLOW, WHITE, BLUE];
 
 export const BAG = 'bag';
+export const POT = 'pot';

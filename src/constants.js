@@ -8,3 +8,4 @@ export const colors = [BLACK, RED, YELLOW, WHITE, BLUE];
 
 export const BAG = 'bag';
 export const POT = 'pot';
+export const LID = 'lid';

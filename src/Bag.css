@@ -1,0 +1,9 @@
+.bag {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.bag > * {
+  margin-left: 8px;
+}

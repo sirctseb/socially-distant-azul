@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import Bag from './Bag';
 import firebase from './firebase';
 import { resetGame } from './firebase/mutations';
 import 'firebase/database';
@@ -14,8 +15,12 @@ export default () => {
     },
     []);
 
+  if (!game || !game.tiles) {
+    return 'loading game';
+  }
+
   return <div>
-    { JSON.stringify(game) }
+    <Bag game={game} />
     <button onClick={() => resetGame(gameRef.current)}>Reset game</button>
   </div>;
 }

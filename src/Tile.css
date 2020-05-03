@@ -1,0 +1,24 @@
+.tile {
+  width: 40px;
+  height: 40px;
+}
+
+.tile--red {
+  background-color: red;
+}
+
+.tile--black {
+  background-color: black;
+}
+
+.tile--yellow {
+  background-color: yellow;
+}
+
+.tile--blue {
+  background-color: blue;
+}
+
+.tile--white {
+  background-color: white;
+}

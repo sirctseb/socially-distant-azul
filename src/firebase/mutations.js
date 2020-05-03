@@ -1,16 +1,9 @@
-const numberOfEachColor = 20;
-const BLACK = 'black';
-const RED = 'red';
-const YELLOW = 'yellow';
-const WHITE = 'white';
-const BLUE = 'blue';
-const colors = [BLACK, RED, YELLOW, WHITE, BLUE];
-
-const BAG = 'bag';
+import { colors, NumberOfEachColor, BAG } from '../constants';
 
 const resetGame = ref => ref.set(null).then(() => {
-  colors.forEach(color => [...new Array(numberOfEachColor)].forEach(() => {
-    ref.push({ color, location: BAG });
+  const tilesRef = ref.child('tiles');
+  colors.forEach(color => [...new Array(NumberOfEachColor)].forEach(() => {
+    tilesRef.push({ color, location: BAG });
   }));
 })
 

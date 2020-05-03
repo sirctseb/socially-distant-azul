@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Bag from './Bag';
 import Players from './Players';
 import firebase from './firebase';
-import { resetGame, addPlayer, removePlayer } from './firebase/mutations';
+import { resetGame, addPlayer, removePlayer, deal } from './firebase/mutations';
 import 'firebase/database';
 
 export default () => {
@@ -26,6 +26,7 @@ export default () => {
 
   return <div>
     <Bag game={game} />
+    <button onClick={() => deal(gameDb, game)}>Deal</button>
     <button onClick={() => resetGame(gameDb)}>Reset game</button>
     <Players game={game} onDeletePlayer={onDeletePlayer} onAddPlayer={onAddPlayer} />
   </div>;

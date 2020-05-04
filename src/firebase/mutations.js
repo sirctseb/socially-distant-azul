@@ -1,8 +1,10 @@
 import { colors, NumberOfEachColor, BAG, POT, LID } from '../constants';
+import entity from '../entity';
+import getNumDiscs from '../getNumDiscs';
 
 const resetGame = ref => ref.set(null).then(() => {
   const tilesRef = ref.child('tiles');
-  colors.forEach(color => [...new Array(NumberOfEachColor)].forEach(() => {
+  colors.forEach(color => [...Array(NumberOfEachColor).keys()].forEach(() => {
     tilesRef.push({ color, location: BAG });
   }));
   ref.child('starter').set({
@@ -29,22 +31,10 @@ const dumpLid = (ref, game) =>
       return { ...game.tiles[key], key };
     });
 
-const getNumDiscs = numPlayers => {
-  if (numPlayers === 2) {
-    return 5;
-  }
-  if (numPlayers === 3) {
-    return 7;
-  }
-  if (numPlayers === 4) {
-    return 9;
-  }
-  throw new Error('Unacceptable number of players');
-}
 
 const deal = (ref, game) => {
-  let bag = Object.keys(game.tiles).map(key => ({ key, ...game.tiles[key] }));
-  const numDiscs = getNumDiscs(Object.keys(game.players).length);
+  let bag = entity(game.tiles);
+  const numDiscs = getNumDiscs(game);
   let tile;
 
   for(let disc = 0; disc < numDiscs; disc++) {

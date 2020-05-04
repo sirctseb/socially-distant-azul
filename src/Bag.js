@@ -2,12 +2,11 @@ import React from 'react';
 import { BAG } from './constants';
 import Tile from './Tile';
 import './Bag.css';
-
-const arrayIfy = obj => Object.keys(obj).map(key => ({ ...obj[key], key }));
+import entity from './entity';
 
 export default ({ game: { tiles } }) => <div className='bag'>
   {
-    arrayIfy(tiles)
+    entity(tiles)
       .filter(
         tile => tile.location === BAG
       ).map(

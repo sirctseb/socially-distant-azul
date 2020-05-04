@@ -5,9 +5,11 @@ import Discs from './Discs';
 import firebase from './firebase';
 import { resetGame, addPlayer, removePlayer, deal } from './firebase/mutations';
 import 'firebase/database';
+import 'firebase/auth';
 
 export default () => {
   const [game, setGame] = useState({});
+  const [user, setUser] = useState(null);
   const gameRef = useRef();
   gameRef.current = firebase.database().ref();
   const gameDb = gameRef.current;
@@ -17,14 +19,20 @@ export default () => {
       return () => gameDb.off();
     },
     [gameDb]);
+  useEffect(
+    () => {
+      firebase.auth().signInAnonymously().then(({ user }) => setUser(user)).catch(() => console.log('error logging in'));
+    },
+    []
+  );
 
   if (!game || !game.tiles) {
     return 'loading game';
   }
 
   const onDeletePlayer = key => removePlayer(gameDb, key);
-  const onAddPlayer = name => addPlayer(gameDb, name);
-  const players = Object.keys(game.players).length > 1;
+  const onAddPlayer = name => addPlayer(gameDb, name, user.uid);
+  const players = Object.keys(game.players || {}).length > 1;
 
   return <div>
     {players && <Bag game={game} />}

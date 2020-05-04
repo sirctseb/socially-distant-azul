@@ -12,7 +12,7 @@ const resetGame = ref => ref.set(null).then(() => {
   });
 });
 
-const addPlayer = (ref, name) => ref.child('players').push({ name });
+const addPlayer = (ref, name, uid) => ref.child('players').push({ name, uid });
 
 const removePlayer = (ref, key) => ref.child(`players/${key}`).set(null);
 

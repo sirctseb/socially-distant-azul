@@ -52,9 +52,19 @@ const deal = (ref, game) => {
   }
 }
 
+const takeColorFromDisc = (ref, game, disc, color, player) => {
+  entity(game.tiles)
+    .filter(tile => tile.location === disc.disc)
+    .forEach(tile => {
+      const location = tile.color === color ? player : POT;
+      ref.child(`tiles/${tile.key}/location`).set(location);
+    });
+}
+
 export {
   resetGame,
   addPlayer,
   removePlayer,
   deal,
+  takeColorFromDisc,
 };

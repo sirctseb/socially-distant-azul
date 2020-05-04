@@ -3,7 +3,7 @@ import Bag from './Bag';
 import Players from './Players';
 import Discs from './Discs';
 import firebase from './firebase';
-import { resetGame, addPlayer, removePlayer, deal } from './firebase/mutations';
+import { resetGame, addPlayer, removePlayer, deal, takeColorFromDisc } from './firebase/mutations';
 import 'firebase/database';
 import 'firebase/auth';
 
@@ -32,11 +32,12 @@ export default () => {
 
   const onDeletePlayer = key => removePlayer(gameDb, key);
   const onAddPlayer = name => addPlayer(gameDb, name, user.uid);
+  const onChooseDiscTile = (disc, tile) => takeColorFromDisc(gameDb, game, disc, tile.color, user.uid);
   const players = Object.keys(game.players || {}).length > 1;
 
   return <div>
     {players && <Bag game={game} />}
-    {players && <Discs game={game} />}
+    {players && <Discs game={game} onChooseDiscTile={onChooseDiscTile} />}
     <button onClick={() => deal(gameDb, game)}>Deal</button>
     <button onClick={() => resetGame(gameDb)}>Reset game</button>
     <Players game={game} onDeletePlayer={onDeletePlayer} onAddPlayer={onAddPlayer} />

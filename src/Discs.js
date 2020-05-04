@@ -3,14 +3,14 @@ import getNumDiscs from './getNumDiscs';
 import Tile from './Tile';
 import entity from './entity';
 
-const Disc = ({ disc, tiles }) => <div className="disc">
+const Disc = ({ disc, tiles, onChooseTile }) => <div className="disc">
   {disc}
   {
-    tiles.map(tile => <Tile key={tile.key} tile={tile} />)
+    tiles.map(tile => <Tile key={tile.key} tile={tile} onClick={() => onChooseTile(tile)} />)
   }
 </div>;
 
-export default ({ game, game: { tiles }}) => {
+export default ({ game, game: { tiles }, onChooseDiscTile }) => {
   const numDiscs = getNumDiscs(game);
   const discs = [...Array(numDiscs).keys()].map(disc => ({
     disc,
@@ -18,7 +18,7 @@ export default ({ game, game: { tiles }}) => {
   }))
   return <div className="discs">
     {
-      discs.map(disc => <Disc key={disc.disc} {...disc} />)
+      discs.map(disc => <Disc key={disc.disc} {...disc} onChooseTile={tile => onChooseDiscTile(disc, tile)} />)
     }
   </div>
 };

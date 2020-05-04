@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Bag from './Bag';
 import Players from './Players';
 import Discs from './Discs';
+import Board from './Board';
 import firebase from './firebase';
 import { resetGame, addPlayer, removePlayer, deal, takeColorFromDisc } from './firebase/mutations';
 import 'firebase/database';
@@ -41,5 +42,6 @@ export default () => {
     <button onClick={() => deal(gameDb, game)}>Deal</button>
     <button onClick={() => resetGame(gameDb)}>Reset game</button>
     <Players game={game} onDeletePlayer={onDeletePlayer} onAddPlayer={onAddPlayer} />
+    {players && <Board game={game} player={Object.values(game.players).find(({ uid }) => uid === user.uid)} />}
   </div>;
 }

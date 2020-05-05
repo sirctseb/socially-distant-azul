@@ -67,6 +67,9 @@ const takeColorFromPot = (ref, game, color, player) => {
     .forEach(tile => {
       ref.child(`tiles/${tile.key}/location`).set(player)
     });
+  if (game.starter.location === POT) {
+    ref.child('starter/location').set(player);
+  }
 }
 
 export {

@@ -3,6 +3,7 @@ import Bag from './Bag';
 import Players from './Players';
 import Discs from './Discs';
 import Board from './Board';
+import Pot from './Pot';
 import firebase from './firebase';
 import { resetGame, addPlayer, removePlayer, deal, takeColorFromDisc } from './firebase/mutations';
 import 'firebase/database';
@@ -39,6 +40,7 @@ export default () => {
   return <div>
     {players && <Bag game={game} />}
     {players && <Discs game={game} onChooseDiscTile={onChooseDiscTile} />}
+    {players && <Pot game={game} />}
     <button onClick={() => deal(gameDb, game)}>Deal</button>
     <button onClick={() => resetGame(gameDb)}>Reset game</button>
     <Players game={game} onDeletePlayer={onDeletePlayer} onAddPlayer={onAddPlayer} />

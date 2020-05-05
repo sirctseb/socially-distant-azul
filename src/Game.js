@@ -5,7 +5,7 @@ import Discs from './Discs';
 import Board from './Board';
 import Pot from './Pot';
 import firebase from './firebase';
-import { resetGame, addPlayer, removePlayer, deal, takeColorFromDisc, takeColorFromPot } from './firebase/mutations';
+import { resetGame, addPlayer, removePlayer, deal, takeColorFromDisc, takeColorFromPot, discardTileToLid } from './firebase/mutations';
 import 'firebase/database';
 import 'firebase/auth';
 
@@ -36,6 +36,7 @@ export default () => {
   const onAddPlayer = name => addPlayer(gameDb, name, user.uid);
   const onChooseDiscTile = (disc, tile) => takeColorFromDisc(gameDb, game, disc, tile.color, user.uid);
   const onChoosePotTile = tile => takeColorFromPot(gameDb, game, tile.color, user.uid);
+  const onDiscardTile = tile => discardTileToLid(gameDb, tile);
   const players = Object.keys(game.players || {}).length > 1;
 
   return <div>
@@ -45,6 +46,8 @@ export default () => {
     <button onClick={() => deal(gameDb, game)}>Deal</button>
     <button onClick={() => resetGame(gameDb)}>Reset game</button>
     <Players game={game} onDeletePlayer={onDeletePlayer} onAddPlayer={onAddPlayer} />
-    {players && <Board game={game} player={Object.values(game.players).find(({ uid }) => uid === user.uid)} />}
+    {players && <Board game={game}
+      player={Object.values(game.players).find(({ uid }) => uid === user.uid)}
+      onDiscardTile={onDiscardTile} />}
   </div>;
 }

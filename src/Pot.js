@@ -8,4 +8,7 @@ export default ({ game, onChooseTile }) => <div className="pot">
   {
     entity(game.tiles).filter(tile => tile.location === POT).map(tile => <Tile tile={tile} onClick={() => onChooseTile(tile)} />)
   }
+  {
+    game.starter.location === POT && 'Starter Tile'
+  }
 </div>

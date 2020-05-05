@@ -76,6 +76,10 @@ const discardTileToLid = (ref, tile) => {
   ref.child(`tiles/${tile.key}/location`).set(LID);
 }
 
+const discardStarterTileToPot = (ref) => {
+  ref.child('starter/location').set(POT);
+}
+
 export {
   resetGame,
   addPlayer,
@@ -84,4 +88,5 @@ export {
   takeColorFromDisc,
   takeColorFromPot,
   discardTileToLid,
+  discardStarterTileToPot,
 };

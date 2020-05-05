@@ -7,4 +7,7 @@ export default ({ game, player }) => <div className="board">
   {
     entity(game.tiles).filter(tile => tile.location === player.uid).map(tile => <Tile tile={tile} />)
   }
+  {
+    game.starter.location === player.uid && 'Starter Tile'
+  }
 </div>

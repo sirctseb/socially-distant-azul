@@ -1,0 +1,15 @@
+.disc {
+  border-radius: 50%;
+  border: 3px solid black;
+  width: 200px;
+  height: 200px;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.disc > * {
+  margin-left: 24px;
+}

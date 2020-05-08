@@ -3,6 +3,9 @@ import getNumDiscs from './getNumDiscs';
 import Tile from './Tile';
 import entity from './entity';
 
+import './Disc.css';
+import './Discs.css';
+
 const Disc = ({ disc, tiles, onChooseTile }) => <div className="disc">
   {disc}
   {

@@ -1,0 +1,7 @@
+.discs {
+  display: flex;
+  flex-wrap: wrap;
+}
+.discs > * {
+  margin-left: 24px;
+}

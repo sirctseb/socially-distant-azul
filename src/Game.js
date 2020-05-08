@@ -50,7 +50,7 @@ export default () => {
     {enoughPlayers && <Bag game={game} />}
     {enoughPlayers && <Discs game={game} onChooseDiscTile={onChooseDiscTile} />}
     {enoughPlayers && <Pot game={game} onChooseTile={onChoosePotTile} />}
-    <button onClick={() => deal(gameDb, game)}>Deal</button>
+    {enoughPlayers && <button onClick={() => deal(gameDb, game)}>Deal</button>}
     <button onClick={() => resetGame(gameDb)}>Reset game</button>
     <Players players={players} onDeletePlayer={onDeletePlayer} onAddPlayer={onAddPlayer} />
     {

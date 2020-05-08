@@ -36,7 +36,7 @@ export default () => {
 
   const players = entity(game.players || {});
   const localPlayers = players.filter(player => player.uid === user.uid);
-  const currentPlayer = players.find(player => player.key === currentPlayerKey);
+  const currentPlayer = players.find(player => player.key === currentPlayerKey) || (players.length < 0 ? players[0] : null);
   const enoughPlayers = players.length > 1;
 
   const onDeletePlayer = key => removePlayer(gameDb, key);
@@ -56,6 +56,7 @@ export default () => {
     {
       enoughPlayers && localPlayers.map(player =>
         <Board key={player.key}
+          current={!!currentPlayer && currentPlayer.key === player.key}
           game={game}
           player={player}
           onDiscardTile={onDiscardTile}

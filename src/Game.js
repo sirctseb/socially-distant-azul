@@ -36,7 +36,7 @@ export default () => {
 
   const players = entity(game.players || {});
   const localPlayers = players.filter(player => player.uid === user.uid);
-  const currentPlayer = players.find(player => player.key === currentPlayerKey) || (players.length < 0 ? players[0] : null);
+  const currentPlayer = players.find(player => player.key === currentPlayerKey) || (players.length > 0 ? players[0] : null);
   const enoughPlayers = players.length > 1;
 
   const onDeletePlayer = key => removePlayer(gameDb, key);

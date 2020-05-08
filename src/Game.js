@@ -52,7 +52,7 @@ export default () => {
     {enoughPlayers && <Pot game={game} onChooseTile={onChoosePotTile} />}
     {enoughPlayers && <button onClick={() => deal(gameDb, game)}>Deal</button>}
     <button onClick={() => resetGame(gameDb)}>Reset game</button>
-    <Players players={players} onDeletePlayer={onDeletePlayer} onAddPlayer={onAddPlayer} />
+    { players.length < 4 && <Players players={players} onDeletePlayer={onDeletePlayer} onAddPlayer={onAddPlayer} /> }
     {
       enoughPlayers && localPlayers.map(player =>
         <Board key={player.key}

@@ -6,7 +6,7 @@ import { POT } from './constants';
 export default ({ game, onChooseTile }) => <div className="pot">
   Pot
   {
-    entity(game.tiles).filter(tile => tile.location === POT).map(tile => <Tile tile={tile} onClick={() => onChooseTile(tile)} />)
+    entity(game.tiles).filter(tile => tile.location === POT).map(tile => <Tile key={tile.key} tile={tile} onClick={() => onChooseTile(tile)} />)
   }
   {
     game.starter.location === POT && 'Starter Tile'

@@ -12,7 +12,7 @@ const resetGame = ref => ref.set(null).then(() => {
   });
 });
 
-const addPlayer = (ref, name, uid) => ref.child('players').push({ name, uid });
+const addPlayer = (ref, name, uid) => ref.child('players').push({ name, uid }).key;
 
 const removePlayer = (ref, key) => ref.child(`players/${key}`).set(null);
 
@@ -52,23 +52,23 @@ const deal = (ref, game) => {
   }
 }
 
-const takeColorFromDisc = (ref, game, disc, color, player) => {
+const takeColorFromDisc = (ref, game, disc, color, playerKey) => {
   entity(game.tiles)
     .filter(tile => tile.location === disc.disc)
     .forEach(tile => {
-      const location = tile.color === color ? player : POT;
+      const location = tile.color === color ? playerKey : POT;
       ref.child(`tiles/${tile.key}/location`).set(location);
     });
 }
 
-const takeColorFromPot = (ref, game, color, player) => {
+const takeColorFromPot = (ref, game, color, playerKey) => {
   entity(game.tiles)
     .filter(tile => tile.location === POT && tile.color === color)
     .forEach(tile => {
-      ref.child(`tiles/${tile.key}/location`).set(player)
+      ref.child(`tiles/${tile.key}/location`).set(playerKey)
     });
   if (game.starter.location === POT) {
-    ref.child('starter/location').set(player);
+    ref.child('starter/location').set(playerKey);
   }
 }
 

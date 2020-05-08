@@ -9,7 +9,7 @@ const Player = ({ player: { key, name }, onDeletePlayer }) => <div className="pl
   </button>
 </div>
 
-export default ({ game: { players = {}}, onAddPlayer, onDeletePlayer }) => {
+export default ({ players = [], onAddPlayer, onDeletePlayer }) => {
   const [name, setName] = useState('');
 
   const onAddPlayerClick = () => {
@@ -19,7 +19,7 @@ export default ({ game: { players = {}}, onAddPlayer, onDeletePlayer }) => {
 
   return <div className='players'>
     {
-      Object.keys(players).map(key => <Player key={key} player={{...players[key], key}} onDeletePlayer={onDeletePlayer} />)
+      players.map(player => <Player key={player.key} player={player} onDeletePlayer={onDeletePlayer} />)
     }
     <label>
       Player name <input onChange={({ target: { value } }) => setName(value)} />

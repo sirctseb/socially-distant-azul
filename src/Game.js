@@ -6,12 +6,14 @@ import Board from './Board';
 import Pot from './Pot';
 import firebase from './firebase';
 import { resetGame, addPlayer, removePlayer, deal, takeColorFromDisc, takeColorFromPot, discardTileToLid, discardStarterTileToPot } from './firebase/mutations';
+import entity from './entity';
 import 'firebase/database';
 import 'firebase/auth';
 
 export default () => {
   const [game, setGame] = useState({});
   const [user, setUser] = useState(null);
+  const [currentPlayerKey, setCurrentPlayerKey] = useState(null);
   const gameRef = useRef();
   gameRef.current = firebase.database().ref();
   const gameDb = gameRef.current;
@@ -32,24 +34,34 @@ export default () => {
     return 'loading game';
   }
 
+  const players = entity(game.players || {});
+  const localPlayers = players.filter(player => player.uid === user.uid);
+  const currentPlayer = players.find(player => player.key === currentPlayerKey);
+  const enoughPlayers = players.length > 1;
+
   const onDeletePlayer = key => removePlayer(gameDb, key);
-  const onAddPlayer = name => addPlayer(gameDb, name, user.uid);
-  const onChooseDiscTile = (disc, tile) => takeColorFromDisc(gameDb, game, disc, tile.color, user.uid);
-  const onChoosePotTile = tile => takeColorFromPot(gameDb, game, tile.color, user.uid);
+  const onAddPlayer = name => setCurrentPlayerKey(addPlayer(gameDb, name, user.uid));
+  const onChooseDiscTile = (disc, tile) => takeColorFromDisc(gameDb, game, disc, tile.color, currentPlayer.key);
+  const onChoosePotTile = tile => takeColorFromPot(gameDb, game, tile.color, currentPlayer.key);
   const onDiscardTile = tile => discardTileToLid(gameDb, tile);
   const onDiscardStarterTile = () => discardStarterTileToPot(gameDb);
-  const players = Object.keys(game.players || {}).length > 1;
 
   return <div>
-    {players && <Bag game={game} />}
-    {players && <Discs game={game} onChooseDiscTile={onChooseDiscTile} />}
-    {players && <Pot game={game} onChooseTile={onChoosePotTile} />}
+    {enoughPlayers && <Bag game={game} />}
+    {enoughPlayers && <Discs game={game} onChooseDiscTile={onChooseDiscTile} />}
+    {enoughPlayers && <Pot game={game} onChooseTile={onChoosePotTile} />}
     <button onClick={() => deal(gameDb, game)}>Deal</button>
     <button onClick={() => resetGame(gameDb)}>Reset game</button>
-    <Players game={game} onDeletePlayer={onDeletePlayer} onAddPlayer={onAddPlayer} />
-    {players && <Board game={game}
-      player={Object.values(game.players).find(({ uid }) => uid === user.uid)}
-      onDiscardTile={onDiscardTile}
-      onDiscardStarterTile={onDiscardStarterTile} />}
+    <Players players={players} onDeletePlayer={onDeletePlayer} onAddPlayer={onAddPlayer} />
+    {
+      enoughPlayers && localPlayers.map(player =>
+        <Board key={player.key}
+          game={game}
+          player={player}
+          onDiscardTile={onDiscardTile}
+          onDiscardStarterTile={onDiscardStarterTile}
+          onFocusPlayer={() => setCurrentPlayerKey(player.key)} />
+      )
+    }
   </div>;
 }

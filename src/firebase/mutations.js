@@ -2,15 +2,17 @@ import { colors, NumberOfEachColor, BAG, POT, LID } from '../constants';
 import entity from '../entity';
 import getNumDiscs from '../getNumDiscs';
 
-const resetGame = ref => ref.set(null).then(() => {
+const resetGame = ref => ref.update({
+  starter: {
+    location: POT,
+  },
+  tiles: null,
+}).then(() => {
   const tilesRef = ref.child('tiles');
   colors.forEach(color => [...Array(NumberOfEachColor).keys()].forEach(() => {
     tilesRef.push({ color, location: BAG });
   }));
-  ref.child('starter').set({
-    location: POT
-  });
-});
+})
 
 const addPlayer = (ref, name, uid) => ref.child('players').push({ name, uid }).key;
 

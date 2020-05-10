@@ -1,0 +1,13 @@
+.pot {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pot > * {
+  margin: 8px;
+}

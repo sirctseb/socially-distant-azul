@@ -35,7 +35,7 @@ const dumpLid = (ref, game) =>
 
 
 const deal = (ref, game) => {
-  let bag = entity(game.tiles);
+  let bag = entity(game.tiles).filter(({ location }) => location === BAG);
   const numDiscs = getNumDiscs(game);
   let tile;
 

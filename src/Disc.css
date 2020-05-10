@@ -1,15 +1,27 @@
 .disc {
   border-radius: 50%;
   border: 3px solid black;
-  width: 200px;
-  height: 200px;
 
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+
+  position: relative;
 }
 
-.disc > * {
-  margin-left: 24px;
+.disc:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+.disc__content {
+  position: absolute;
+  width: 65%;
+  height: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
 }

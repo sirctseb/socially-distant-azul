@@ -3,5 +3,7 @@
   flex-wrap: wrap;
 }
 .discs > * {
-  margin-left: 24px;
+  margin-left: 12px;
+  margin-right: 12px;
+  flex: 1;
 }

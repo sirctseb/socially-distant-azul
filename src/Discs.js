@@ -1,17 +1,9 @@
 import React from 'react';
 import getNumDiscs from './getNumDiscs';
-import Tile from './Tile';
 import entity from './entity';
+import Disc from './Disc';
 
-import './Disc.css';
 import './Discs.css';
-
-const Disc = ({ disc, tiles, onChooseTile }) => <div className="disc">
-  {disc}
-  {
-    tiles.map(tile => <Tile key={tile.key} tile={tile} onClick={() => onChooseTile(tile)} />)
-  }
-</div>;
 
 export default ({ game, game: { tiles }, onChooseDiscTile }) => {
   const numDiscs = getNumDiscs(game);

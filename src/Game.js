@@ -48,7 +48,7 @@ export default () => {
 
   return <div>
     <button onClick={() => resetGame(gameDb)}>Reset game</button>
-    { players.length < 4 && <Players players={players} onDeletePlayer={onDeletePlayer} onAddPlayer={onAddPlayer} /> }
+    { players.length < 4 && <Players onAddPlayer={onAddPlayer} /> }
     {enoughPlayers && <button onClick={() => deal(gameDb, game)}>Deal</button>}
     {enoughPlayers && <Bag game={game} />}
     {enoughPlayers && <Pot game={game} onChooseTile={onChoosePotTile} />}
@@ -61,6 +61,7 @@ export default () => {
           player={player}
           onDiscardTile={onDiscardTile}
           onDiscardStarterTile={onDiscardStarterTile}
+          onDeletePlayer={() => onDeletePlayer(player.key)}
           onFocusPlayer={() => setCurrentPlayerKey(player.key)} />
       )
     }

@@ -47,12 +47,12 @@ export default () => {
   const onDiscardStarterTile = () => discardStarterTileToPot(gameDb);
 
   return <div>
-    {enoughPlayers && <Bag game={game} />}
-    {enoughPlayers && <Discs game={game} onChooseDiscTile={onChooseDiscTile} />}
-    {enoughPlayers && <Pot game={game} onChooseTile={onChoosePotTile} />}
-    {enoughPlayers && <button onClick={() => deal(gameDb, game)}>Deal</button>}
     <button onClick={() => resetGame(gameDb)}>Reset game</button>
     { players.length < 4 && <Players players={players} onDeletePlayer={onDeletePlayer} onAddPlayer={onAddPlayer} /> }
+    {enoughPlayers && <button onClick={() => deal(gameDb, game)}>Deal</button>}
+    {enoughPlayers && <Bag game={game} />}
+    {enoughPlayers && <Pot game={game} onChooseTile={onChoosePotTile} />}
+    {enoughPlayers && <Discs game={game} onChooseDiscTile={onChooseDiscTile} />}
     {
       enoughPlayers && localPlayers.map(player =>
         <Board key={player.key}

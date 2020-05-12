@@ -27,7 +27,7 @@ const pullTile = bag => {
 
 const dumpLid = (ref, game) =>
   Object.keys(game.tiles)
-    .filter(({ location }) => location === LID)
+    .filter(key => game.tiles[key].location === LID)
     .map(key => {
       ref.child(`tiles/${key}/location`).set(BAG);
       return { ...game.tiles[key], key };

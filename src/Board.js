@@ -3,6 +3,8 @@ import Tile from './Tile';
 import entity from './entity';
 import StarterTile from './StarterTile';
 
+import './Board.css';
+
 export default ({ game, player, onDiscardTile, onDiscardStarterTile, onFocusPlayer, currentPlayer, onDeletePlayer }) => <div className={`board ${currentPlayer ? 'board--current' :''}`} onClick={onFocusPlayer}>
   { player.name }'s board
   <button onClick={onDeletePlayer}>Leave Game</button>

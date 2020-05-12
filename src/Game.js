@@ -56,7 +56,7 @@ export default () => {
     {
       enoughPlayers && localPlayers.map(player =>
         <Board key={player.key}
-          current={!!currentPlayer && currentPlayer.key === player.key}
+          currentPlayer={!!currentPlayer && currentPlayer.key === player.key}
           game={game}
           player={player}
           onDiscardTile={onDiscardTile}

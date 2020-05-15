@@ -5,3 +5,8 @@
   flex-wrap: wrap;
   justify-content: space-between;
 }
+
+.lid > * {
+  margin-left: 8px;
+  margin-top: 8px;
+}

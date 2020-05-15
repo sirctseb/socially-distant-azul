@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Bag from './Bag';
+import Lid from './Lid';
 import Players from './Players';
 import Discs from './Discs';
 import Board from './Board';
@@ -63,6 +64,7 @@ export default () => {
     { players.length < 4 && <Players onAddPlayer={onAddPlayer} /> }
     { dealable && <button onClick={() => deal(gameDb, game)}>Deal</button> }
     <Bag game={game} />
+    <Lid game={game} />
     { !pregame && <Pot game={game} onChooseTile={onChoosePotTile} /> }
     { !pregame && <Discs game={game} onChooseDiscTile={onChooseDiscTile} /> }
     {

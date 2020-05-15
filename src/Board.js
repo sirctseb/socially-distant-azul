@@ -5,9 +5,9 @@ import StarterTile from './StarterTile';
 
 import './Board.css';
 
-export default ({ game, player, onDiscardTile, onDiscardStarterTile, onFocusPlayer, currentPlayer, onDeletePlayer }) => <div className={`board ${currentPlayer ? 'board--current' :''}`} onClick={onFocusPlayer}>
-  { player.name }'s board
-  <button onClick={onDeletePlayer}>Leave Game</button>
+export default ({ game, player, localPlayer, onDiscardTile, onDiscardStarterTile, onFocusPlayer, currentPlayer, onDeletePlayer }) => <div className={`board ${currentPlayer ? 'board--current' :''}`} onClick={onFocusPlayer}>
+  { player.name }
+  { localPlayer && <button onClick={onDeletePlayer}>Leave Game</button> }
   {
     entity(game.tiles).filter(tile => tile.location === player.key).map(tile => <Tile key={tile.key} tile={tile} onClick={() => onDiscardTile(tile)} />)
   }

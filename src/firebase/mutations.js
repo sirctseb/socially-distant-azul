@@ -14,7 +14,10 @@ const resetGame = ref => ref.update({
   }));
 })
 
-const addPlayer = (ref, name, uid) => ref.child('players').push({ name, uid }).key;
+const addPlayer = (ref, name, uid) => {
+  const newPlayerKey = ref.child('players').push({ name, uid }).key;
+  ref.child('currentPlayer').set(newPlayerKey);
+}
 
 const removePlayer = (ref, key) => ref.child(`players/${key}`).set(null);
 
@@ -54,24 +57,37 @@ const deal = (ref, game) => {
   }
 }
 
-const takeColorFromDisc = (ref, game, disc, color, playerKey) => {
+const orderedPlayerKeys = game => {
+  const orderedPlayerKeys = Object.keys(game.players);
+  orderedPlayerKeys.sort();
+  return orderedPlayerKeys;
+}
+
+const advancePlayer = (ref, game) => {
+  const keys = orderedPlayerKeys(game);
+  ref.child('currentPlayer').set(keys[(keys.indexOf(game.currentPlayer) + 1) % keys.length]);
+};
+
+const takeColorFromDisc = (ref, game, disc, color) => {
   entity(game.tiles)
     .filter(tile => tile.location === disc.disc)
     .forEach(tile => {
-      const location = tile.color === color ? playerKey : POT;
+      const location = tile.color === color ? game.currentPlayer : POT;
       ref.child(`tiles/${tile.key}/location`).set(location);
     });
+  advancePlayer(ref, game);
 }
 
-const takeColorFromPot = (ref, game, color, playerKey) => {
+const takeColorFromPot = (ref, game, color) => {
   entity(game.tiles)
     .filter(tile => tile.location === POT && tile.color === color)
     .forEach(tile => {
-      ref.child(`tiles/${tile.key}/location`).set(playerKey)
+      ref.child(`tiles/${tile.key}/location`).set(game.currentPlayer)
     });
   if (game.starter.location === POT) {
-    ref.child('starter/location').set(playerKey);
+    ref.child('starter/location').set(game.currentPlayer);
   }
+  advancePlayer(ref, game);
 }
 
 const discardTileToLid = (ref, tile) => {

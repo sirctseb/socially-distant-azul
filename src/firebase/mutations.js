@@ -42,10 +42,13 @@ const deal = (ref, game) => {
   const numDiscs = getNumDiscs(game);
   let tile;
 
+  let dumpedLid = false;
+
   for(let disc = 0; disc < numDiscs; disc++) {
     for(let tileIndex = 0; tileIndex < 4; tileIndex++) {
-      if (bag.length === 0) {
+      if (bag.length === 0 && !dumpedLid) {
         bag = dumpLid(ref, game);
+        dumpedLid = true;
       }
       if(bag.length === 0) {
         return;

@@ -1,0 +1,64 @@
+.header {
+  position: relative;
+  background-color: #2F5F6D;
+  color: #F7F5F1;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+}
+
+.header__title {
+  font-size: 48px;
+  margin-right: auto;
+}
+
+.header__guide {
+  font-size: 24px;
+}
+
+.header__add-player {
+  margin-left: auto;
+  display: flex;
+  margin-right: 24px;
+}
+
+.header__add-player-input {
+  height: 20px;
+  padding: 2px 0 2px 8px;
+  border: none;
+}
+
+.header__add-player-button {
+  border: none;
+  background-color: #CA412C;
+  color: white;
+}
+
+.header__reset {
+  width: 16px;
+  /* width: 240px; */
+  background-color: #D78F48;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header__reset:hover {
+  width: 50%;
+}
+.header__reset:hover > .header__reset-button {
+  display: block
+}
+
+.header__reset-button {
+  height: 20px;
+  appearance: none;
+  display: none;
+  background-color: #CA412C;
+  color: white;
+  border: none;
+}

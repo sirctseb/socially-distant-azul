@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Bag from './Bag';
 import Lid from './Lid';
-import Players from './Players';
+import Header from './Header';
 import Discs from './Discs';
 import TopStuff from './TopStuff';
 import Board from './Board';
@@ -46,7 +46,7 @@ export default () => {
     return 'loading game';
   }
 
-  const { pregame, discardState, drawState, dealable } = derivedState(game);
+  const { pregame, discardState, dealable } = derivedState(game);
 
   const players = entity(game.players || {});
 
@@ -58,15 +58,18 @@ export default () => {
   const onDiscardStarterTile = () => discardStarterTileToPot(gameDb);
 
   return <div>
-    <button onClick={() => resetGame(gameDb)}>Reset game</button>
-    { pregame && 'Hit deal' }
-    { discardState && 'Move finished tiles to the lid' }
-    { drawState && 'Pick a color from a disc or the pot' }
-    { players.length < 4 && <Players onAddPlayer={onAddPlayer} /> }
-    { dealable && <button onClick={() => deal(gameDb, game)}>Deal</button> }
+    <Header
+      guide={
+        pregame ? 'Deal when ready!' :
+        discardState ? 'Move finished tiles to the lid' :
+        /*drawState && */'Pick a color from a disc or the pot'
+      }
+      onReset={() => resetGame(gameDb)}
+      onAddPlayer={players.length < 4 && onAddPlayer}
+    />
     <TopStuff>
       <Lid game={game} />
-      <Bag game={game} />
+      <Bag game={game} dealable={dealable} onDeal={() => deal(gameDb, game)} />
     </TopStuff>
     { !pregame && <Pot game={game} onChooseTile={onChoosePotTile} /> }
     { !pregame && <Discs game={game} onChooseDiscTile={onChooseDiscTile} /> }

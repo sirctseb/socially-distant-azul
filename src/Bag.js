@@ -4,7 +4,11 @@ import Tile from './Tile';
 import './Bag.css';
 import entity from './entity';
 
-export default ({ game: { tiles } }) => <div className='bag'>
+export default ({ game: { tiles }, dealable, onDeal }) => <div className='bag'>
+  {
+    dealable &&
+    <button className="bag__deal" onClick={onDeal}>Deal</button>
+  }
   {
     entity(tiles)
       .filter(

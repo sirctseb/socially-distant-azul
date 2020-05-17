@@ -1,0 +1,16 @@
+.boards {
+  margin-top: 24px;
+}
+
+.boards__title {
+  font-size: 24px;
+}
+
+.boards__boards {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.boards > * {
+  /* flex: 1; */
+}

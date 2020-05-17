@@ -4,6 +4,7 @@ import Lid from './Lid';
 import Header from './Header';
 import Discs from './Discs';
 import TopStuff from './TopStuff';
+import Boards from './Boards';
 import Board from './Board';
 import Pot from './Pot';
 import firebase from './firebase';
@@ -73,17 +74,19 @@ export default () => {
     </TopStuff>
     { !pregame && <Pot game={game} onChooseTile={onChoosePotTile} /> }
     { !pregame && <Discs game={game} onChooseDiscTile={onChooseDiscTile} /> }
-    {
-      players.map(player =>
-        <Board key={player.key}
-          currentPlayer={player.key === game.currentPlayer}
-          localPlayer={player.uid === user.uid}
-          game={game}
-          player={player}
-          onDiscardTile={onDiscardTile}
-          onDiscardStarterTile={onDiscardStarterTile}
-          onDeletePlayer={() => onDeletePlayer(player.key)} />
-      )
-    }
+    <Boards>
+      {
+        players.map(player =>
+          <Board key={player.key}
+            currentPlayer={player.key === game.currentPlayer}
+            localPlayer={player.uid === user.uid}
+            game={game}
+            player={player}
+            onDiscardTile={onDiscardTile}
+            onDiscardStarterTile={onDiscardStarterTile}
+            onDeletePlayer={() => onDeletePlayer(player.key)} />
+        )
+      }
+    </Boards>
   </div>;
 }

@@ -44,7 +44,7 @@ export default () => {
   );
 
   if (!game || !game.tiles) {
-    return 'loading game';
+    return <button onClick={() => resetGame(gameDb)}>Initialize</button>
   }
 
   const { pregame, discardState, dealable } = derivedState(game);
@@ -74,19 +74,21 @@ export default () => {
     </TopStuff>
     { !pregame && <Pot game={game} onChooseTile={onChoosePotTile} /> }
     { !pregame && <Discs game={game} onChooseDiscTile={onChooseDiscTile} /> }
-    <Boards>
-      {
-        players.map(player =>
-          <Board key={player.key}
-            currentPlayer={player.key === game.currentPlayer}
-            localPlayer={player.uid === user.uid}
-            game={game}
-            player={player}
-            onDiscardTile={onDiscardTile}
-            onDiscardStarterTile={onDiscardStarterTile}
-            onDeletePlayer={() => onDeletePlayer(player.key)} />
-        )
-      }
-    </Boards>
+    { user &&
+      <Boards>
+        {
+          players.map(player =>
+            <Board key={player.key}
+              currentPlayer={player.key === game.currentPlayer}
+              localPlayer={player.uid === user.uid}
+              game={game}
+              player={player}
+              onDiscardTile={onDiscardTile}
+              onDiscardStarterTile={onDiscardStarterTile}
+              onDeletePlayer={() => onDeletePlayer(player.key)} />
+          )
+        }
+      </Boards>
+    }
   </div>;
 }

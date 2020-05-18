@@ -56,7 +56,7 @@ export default () => {
   const onChooseDiscTile = (disc, tile) => takeColorFromDisc(gameDb, game, disc, tile.color);
   const onChoosePotTile = tile => takeColorFromPot(gameDb, game, tile.color);
   const onDiscardTile = tile => discardTileToLid(gameDb, tile);
-  const onDiscardStarterTile = () => discardStarterTileToPot(gameDb);
+  const onDiscardStarterTile = () => discardStarterTileToPot(gameDb, game);
 
   return <div>
     <Header

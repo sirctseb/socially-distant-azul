@@ -97,9 +97,11 @@ const discardTileToLid = (ref, tile) => {
   ref.child(`tiles/${tile.key}/location`).set(LID);
 }
 
-const discardStarterTileToPot = (ref) => {
-  ref.child('starter/location').set(POT);
-}
+const discardStarterTileToPot = (ref, game) =>
+  ref.update({
+    'starter/location': POT,
+    'currentPlayer': game.starter.location,
+  });
 
 export {
   resetGame,
